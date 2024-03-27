@@ -39,6 +39,10 @@
     {
       "name": "easy",
       "value": "简单"
+    },
+    {
+      "name": "swith_dict",
+      "value": "切换词典中，请稍后"
     }
   ]
 }

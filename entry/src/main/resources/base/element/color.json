@@ -9,6 +9,10 @@
       "value": "#F6F6F6"
     },
     {
+      "name": "card_background",
+      "value": "#2D9596"
+    },
+    {
       "name": "black",
       "value": "#000000"
     },

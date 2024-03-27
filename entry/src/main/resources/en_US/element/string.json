@@ -39,6 +39,10 @@
     {
       "name": "easy",
       "value": "Easy"
+    },
+    {
+      "name": "swith_dict",
+      "value": "Switching dictionaries, please wait"
     }
   ]
 }
