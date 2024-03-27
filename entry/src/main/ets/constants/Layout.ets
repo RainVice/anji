@@ -1,0 +1,1 @@
+export const  FULL_PERCENTAGE: string = '100%'

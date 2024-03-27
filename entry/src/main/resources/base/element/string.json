@@ -1,0 +1,44 @@
+{
+  "string": [
+    {
+      "name": "module_desc",
+      "value": "module description"
+    },
+    {
+      "name": "EntryAbility_desc",
+      "value": "description"
+    },
+    {
+      "name": "EntryAbility_label",
+      "value": "label"
+    },
+    {
+      "name": "review",
+      "value": "复习"
+    },
+    {
+      "name": "dicts",
+      "value": "词典"
+    },
+    {
+      "name": "statistics",
+      "value": "统计"
+    },
+    {
+      "name": "again",
+      "value": "重学"
+    },
+    {
+      "name": "hard",
+      "value": "困难"
+    },
+    {
+      "name": "good",
+      "value": "一般"
+    },
+    {
+      "name": "easy",
+      "value": "简单"
+    }
+  ]
+}
