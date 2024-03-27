@@ -30,7 +30,7 @@ struct Index {
     .barPosition(BarPosition.End)
     .width(FULL_PERCENTAGE)
     .height(FULL_PERCENTAGE)
-    .backgroundColor("#ffe7f5dc")
+    .backgroundColor($r('app.color.background'))
   }
 
   /**

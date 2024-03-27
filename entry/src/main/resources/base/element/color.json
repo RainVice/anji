@@ -5,6 +5,10 @@
       "value": "#FFFFFF"
     },
     {
+      "name": "background",
+      "value": "#F6F6F6"
+    },
+    {
       "name": "black",
       "value": "#000000"
     },
