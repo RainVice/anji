@@ -1,0 +1,1 @@
+- 软件数据 /data/app/el2/100/database/com.rainvice.anji

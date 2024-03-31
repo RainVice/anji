@@ -43,6 +43,10 @@
     {
       "name": "swith_dict",
       "value": "切换词典中，请稍后"
+    },
+    {
+      "name": "select_dict_tip",
+      "value": "请选择词典"
     }
   ]
 }

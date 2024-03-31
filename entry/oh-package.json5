@@ -5,6 +5,9 @@
   "main": "",
   "author": "",
   "license": "",
-  "dependencies": {}
+  "dependencies": {
+    "@ohos/dataorm": "^2.2.1",
+    "seedrandom": "^3.0.5"
+  }
 }
 
