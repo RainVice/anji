@@ -47,6 +47,10 @@
     {
       "name": "select_dict_tip",
       "value": "请选择词典"
+    },
+    {
+      "name": "previous",
+      "value": "上一个"
     }
   ]
 }

@@ -23,7 +23,7 @@ export struct Dict {
     const dataArr = getContext(this).resourceManager.getRawFileContentSync(dictInfo.url)
     const content = util.TextDecoder.create('utf-8').decodeWithStream(dataArr)
     const dictJson = JSON.parse(content) as WordContent[]
-    const aaa = await DictHelper.addDict(dictInfo.id,dictJson)
+    await DictHelper.addDict(dictInfo.id,dictJson)
     this.dialogControllerProgress.close()
   }
 

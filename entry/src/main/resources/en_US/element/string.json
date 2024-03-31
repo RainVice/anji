@@ -47,6 +47,10 @@
     {
       "name": "select_dict_tip",
       "value": "Please select a dictionary"
+    },
+    {
+      "name": "previous",
+      "value": "Previous"
     }
   ]
 }

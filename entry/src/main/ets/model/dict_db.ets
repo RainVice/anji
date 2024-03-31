@@ -86,7 +86,7 @@ export class DictItem {
       wordCard.word.usphone,
       wordCard.word.ukphone,
       wordCard.word.notation,
-      wordCard.card.due.toLocaleString(),
+      wordCard.card.due.toLocaleString(undefined,{hour12:false}).replace("24:00:00","00:00:00"),
       wordCard.card.stability,
       wordCard.card.difficulty,
       wordCard.card.elapsed_days,
@@ -94,7 +94,7 @@ export class DictItem {
       wordCard.card.reps,
       wordCard.card.lapses,
       wordCard.card.state,
-      wordCard.card.last_review?.toLocaleString() || null
+      wordCard.card.last_review?.toLocaleString(undefined,{hour12:false}).replace("24:00:00","00:00:00") || null
     )
 
   }
@@ -133,141 +133,6 @@ export class DictItem {
     this.state = state;
     this.last_review = last_review || "";
   }
-/*
-  // Getter and Setter for id
-  public getId(): string {
-    return this.id;
-  }
-
-  public setId(value: string): void {
-    this.id = value;
-  }
-
-  // Getter and Setter for name
-  public getName(): string {
-    return this.name;
-  }
-
-  public setName(value: string): void {
-    this.name = value;
-  }
-
-  // Getter and Setter for trans
-  public getTrans(): string {
-    return this.trans;
-  }
-
-  public setTrans(value: string): void {
-    this.trans = value;
-  }
-
-  // Getter and Setter for usphone
-  public getUsphone(): string {
-    return this.usphone;
-  }
-
-  public setUsphone(value: string): void {
-    this.usphone = value;
-  }
-
-  // Getter and Setter for ukphone
-  public getUkphone(): string {
-    return this.ukphone;
-  }
-
-  public setUkphone(value: string): void {
-    this.ukphone = value;
-  }
-
-  // Getter and Setter for notation
-  public getNotation(): string {
-    return this.notation;
-  }
-
-  public setNotation(value: string): void {
-    this.notation = value;
-  }
-
-  // Getter and Setter for due
-  public getDue(): string {
-    return this.due;
-  }
-
-  public setDue(value: string): void {
-    this.due = value;
-  }
-
-  // Getter and Setter for stability
-  public getStability(): number {
-    return this.stability;
-  }
-
-  public setStability(value: number): void {
-    this.stability = value;
-  }
-
-  // Getter and Setter for difficulty
-  public getDifficulty(): number {
-    return this.difficulty;
-  }
-
-  public setDifficulty(value: number): void {
-    this.difficulty = value;
-  }
-
-  // Getter and Setter for elapsed_days
-  public getElapsed_days(): number {
-    return this.elapsed_days;
-  }
-
-  public setElapsed_days(value: number): void {
-    this.elapsed_days = value;
-  }
-
-  // Getter and Setter for scheduled_days
-  public getScheduled_days(): number {
-    return this.scheduled_days;
-  }
-
-  public setScheduled_days(value: number): void {
-    this.scheduled_days = value;
-  }
-
-  // Getter and Setter for reps
-  public getReps(): number {
-    return this.reps;
-  }
-
-  public setReps(value: number): void {
-    this.reps = value;
-  }
-
-  // Getter and Setter for lapses
-  public getLapses(): number {
-    return this.lapses;
-  }
-
-  public setLapses(value: number): void {
-    this.lapses = value;
-  }
-
-  // Getter and Setter for state
-  public getState(): State {
-    return this.state;
-  }
-
-  public setState(value: State): void {
-    this.state = value;
-  }
-
-  // Getter and Setter for last_review
-  public getLast_review(): string | null {
-    return this.last_review;
-  }
-
-  public setLast_review(value: string | null): void {
-    this.last_review = value;
-  }*/
 }
 
 

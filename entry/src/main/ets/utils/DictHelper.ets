@@ -7,6 +7,7 @@ import { preferences } from '@kit.ArkData';
 
 export const currentDict = "currentDict"
 
+const reviewTime = 3
 const dbName = 'dict.db'
 const preferencesName = "Dict"
 
@@ -88,24 +89,27 @@ export class DictHelper extends OpenHelper {
    * @returns
    */
   static getCurrentDict() {
-    return DictHelper.pre.getSync(currentDict, "") as string
+    const current =  DictHelper.pre.getSync(currentDict, "")
+    return current
   }
 
-
-  static async getNextWord() : Promise<WordCard>{
+  /**
+   * 获取下一个单词
+   * @returns
+   */
+  static async getNextWord(): Promise<WordCard> {
 
     const property = DictHelper.getProperty()
     const now = new Date()
     const taday = new Date(now.toLocaleDateString())
     const tomorrow = new Date(taday.getTime() + 24 * 60 * 60 * 1000)
-
     // 先获取需要复习的单词
     let words = await DictHelper.dao.queryBuilder()
       .where(
         property.id.eq(DictHelper.getCurrentDict()),
         [
-          property.due.between(taday.toLocaleString(), tomorrow.toLocaleString()),
-          property.last_review.lt(new Date(now.getTime() - 60 * 1000).toLocaleString()),
+          property.due.between(taday.toLocaleString(undefined,{hour12: false}).replace("24:00:00","00:00:00"), tomorrow.toLocaleString(undefined,{hour12: false}).replace("24:00:00","00:00:00")),
+          property.last_review.lt(new Date(now.getTime() - reviewTime * 1000).toLocaleString(undefined,{hour12: false}).replace("24:00:00","00:00:00")),
         ]
       )
       .orderAsc(property.due)
@@ -122,6 +126,20 @@ export class DictHelper extends OpenHelper {
       .list()
     return words[0].getWordCard()
   }
+
+
+  /**
+   * 更新单词
+   * @param wordContent
+   */
+  static async updateWord(wordCard: WordCard) {
+    const property = DictHelper.getProperty()
+    DictHelper.dao.queryBuilder().where(property.id.eq(wordCard.id), [
+      property.name.eq(wordCard.word.name)
+    ]).buildDelete().executeDeleteWithoutDetachingEntities()
+    await DictHelper.dao.insert(DictItem.createDictItem(wordCard))
+  }
+
 
   /**
    * 获取属性名
