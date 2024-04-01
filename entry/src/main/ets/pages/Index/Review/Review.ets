@@ -6,6 +6,7 @@ import { fsrs, FSRS, Grade, RecordLog, RecordLogItem, ReviewLogInput } from '../
 import { ReviewDict } from '../../../model'
 import { currentDict, DictHelper } from '../../../utils'
 import { LearnRecordHelper } from '../../../utils/LearnRecordHelper'
+import { font } from '@kit.ArkUI'
 
 @Component
 export struct Review {
@@ -15,6 +16,11 @@ export struct Review {
   private fsrs: FSRS = fsrs()
 
   aboutToAppear(): void {
+    // 注册字体
+    font.registerFont({
+      familyName: "标小智龙珠体",
+      familySrc: '/fonts/标小智龙珠体.ttf'
+    })
     // 初始化单词列表
     this.initDict()
   }
@@ -68,6 +74,7 @@ export struct Review {
                       .backgroundColor($r('app.color.black'))
                       .borderRadius(5)
                     Text(this.wordArr[this.wordArr.length - 1].wordCard.word.usphone)
+                      .fontFamily("标小智龙珠体")
                   }
                 }
                 if (this.wordArr[this.wordArr.length - 1].wordCard.word.ukphone) {
@@ -81,6 +88,7 @@ export struct Review {
                       .backgroundColor($r('app.color.black'))
                       .borderRadius(5)
                     Text(this.wordArr[this.wordArr.length - 1].wordCard.word.ukphone)
+                      .fontFamily("标小智龙珠体")
                   }
                 }
                 if (this.wordArr[this.wordArr.length - 1].wordCard.word.notation) {
@@ -94,18 +102,21 @@ export struct Review {
                       .backgroundColor($r('app.color.black'))
                       .borderRadius(5)
                     Text(this.wordArr[this.wordArr.length - 1].wordCard.word.notation)
+                      .fontFamily("标小智龙珠体")
                   }
                 }
               }
 
               // 翻译
-              Text(JSON.stringify(this.wordArr[this.wordArr.length - 1].wordCard.word.trans))
-                .textAlign(TextAlign.Center)
-                .margin({
-                  left: 20,
-                  right: 20
+              Column({space : 5}){
+                ForEach(this.wordArr[this.wordArr.length - 1].wordCard.word.trans,(tran: string,index) => {
+                  Text(tran)
+                    .textAlign(TextAlign.Start)
                 })
-                .visibility(this.showTrans ? Visibility.Visible : Visibility.Hidden)
+              }
+              .padding({left : 20, right: 20})
+              .alignItems(HorizontalAlign.Start)
+              .visibility(this.showTrans ? Visibility.Visible : Visibility.Hidden)
             }
           }
           .layoutWeight(1)

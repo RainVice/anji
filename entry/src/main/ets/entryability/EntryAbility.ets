@@ -18,7 +18,6 @@ export default class EntryAbility extends UIAbility {
     await DictHelper.init(this.context)
     // 初始化学习记录
     await LearnRecordHelper.init(this.context)
-
     // 设置状态栏颜色
     windowStage.getMainWindowSync().setWindowSystemBarProperties({
       statusBarColor: "#" + this.context.resourceManager

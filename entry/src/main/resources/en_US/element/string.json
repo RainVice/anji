@@ -55,6 +55,10 @@
     {
       "name": "review_tip",
       "value": "Click on the blank space to display the translation"
+    },
+    {
+      "name": "select_dict",
+      "value": "Select Dictionary"
     }
   ]
 }

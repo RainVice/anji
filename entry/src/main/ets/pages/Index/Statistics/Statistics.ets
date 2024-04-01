@@ -10,9 +10,7 @@ import {
   XAxisPosition
 } from '@ohos/mpchart'
 import { BarChart } from '@ohos/mpchart/src/main/ets/components/chartcomponents/BarChart'
-import { FULL_PERCENTAGE } from '../../../constants'
-import { LearnRecordHelper } from '../../../utils/LearnRecordHelper'
-import { resourceManager } from '@kit.LocalizationKit'
+import { LearnRecordHelper } from '../../../utils'
 
 @Component
 export struct Statistics {

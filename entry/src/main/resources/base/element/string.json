@@ -55,6 +55,10 @@
     {
       "name": "review_tip",
       "value": "点击空白处显示翻译"
+    },
+    {
+      "name": "select_dict",
+      "value": "选择词典"
     }
   ]
 }

@@ -1,31 +1,12 @@
 import { FULL_PERCENTAGE } from '../../../constants'
 import { WordContent, DictInfo, dictionaryResources } from '../../../model'
-import { LoadingDialog } from '@kit.ArkUI'
+import { LoadingDialog, router } from '@kit.ArkUI'
 import { util } from '@kit.ArkTS'
 import { DictHelper } from '../../../utils'
 
 @Component
 export struct Dict {
   @State private categoryIndex: number = 0
-  private dialogControllerProgress: CustomDialogController = new CustomDialogController({
-    builder: LoadingDialog({ content: $r('app.string.swith_dict') }),
-    autoCancel: false,
-    // customStyle: true,
-    alignment: DialogAlignment.Center
-  })
-
-  /**
-   * 选择词典
-   * @param dictInfo
-   */
-  async selectDict(dictInfo: DictInfo) {
-    this.dialogControllerProgress.open()
-    const dataArr = getContext(this).resourceManager.getRawFileContentSync(dictInfo.url)
-    const content = util.TextDecoder.create('utf-8').decodeWithStream(dataArr)
-    const dictJson = JSON.parse(content) as WordContent[]
-    await DictHelper.addDict(dictInfo.id, dictJson)
-    this.dialogControllerProgress.close()
-  }
 
   build() {
     Column() {
@@ -41,7 +22,6 @@ export struct Dict {
                     .flatMap(res => res.tags))), (tag: string) => {
                     this.content(tag)
                   })
-
                 }
               }
               .align(Alignment.Top)
@@ -122,7 +102,11 @@ export struct Dict {
     .backgroundColor($r('app.color.card_background'))
     // .border({ width: 1, color: '#000' })
     .onClick(() => {
-      this.selectDict(dictInfo)
+      router.pushUrl({
+        url: "pages/DictDetail/DictDetail",
+        params: dictInfo
+      })
+      // this.selectDict(dictInfo)
     })
   }
 }
