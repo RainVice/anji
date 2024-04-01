@@ -2,6 +2,7 @@ import { FULL_PERCENTAGE } from '../../constants';
 import { TabBarInfo, tabBarInfos } from '../../model';
 import { Dict } from './Dict/Dict';
 import { Review } from './Review/Review';
+import { Statistics } from './Statistics/Statistics';
 
 @Entry
 @Component
@@ -14,19 +15,16 @@ struct Index {
 
   build() {
     // Tab 栏
-    Tabs() {
+    Tabs({index: $$this.tabsIndex}) {
       ForEach(tabBarInfos,(item:TabBarInfo,index: number) => {
         TabContent() {
           if (item.id === 0) Review()
           if (item.id === 1) Dict()
-
+          if (item.id === 2) Statistics({tabsIndex: this.tabsIndex})
         }
         .tabBar(this.tabMenu(item))
       })
     }
-    .onChange((index) => {
-      this.tabsIndex = index
-    })
     .barPosition(BarPosition.End)
     .width(FULL_PERCENTAGE)
     .height(FULL_PERCENTAGE)

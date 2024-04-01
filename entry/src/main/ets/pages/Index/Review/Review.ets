@@ -5,12 +5,14 @@ import { FULL_PERCENTAGE } from '../../../constants'
 import { fsrs, FSRS, Grade, RecordLog, RecordLogItem, ReviewLogInput } from '../../../fsrs'
 import { ReviewDict } from '../../../model'
 import { currentDict, DictHelper } from '../../../utils'
+import { LearnRecordHelper } from '../../../utils/LearnRecordHelper'
 
 @Component
 export struct Review {
-  @StorageProp(currentDict) @Watch("initDict") dict: string = ""
-  @State wordArr: ReviewDict[] = []
-  fsrs: FSRS = fsrs()
+  @StorageProp(currentDict) @Watch("initDict") private dict: string = ""
+  @State private wordArr: ReviewDict[] = []
+  @State private showTrans: boolean = false
+  private fsrs: FSRS = fsrs()
 
   aboutToAppear(): void {
     // 初始化单词列表
@@ -38,7 +40,7 @@ export struct Review {
           if (this.wordArr[this.wordArr.length - 1].wordCard.card.last_review) {
             Text("上次学习时间：" + this.wordArr[this.wordArr.length - 1].wordCard.card.last_review?.toLocaleDateString())
               .fontSize(12).height(25)
-          }else{
+          } else {
             Text("暂无上次学习记录")
               .fontSize(12).height(25)
           }
@@ -103,10 +105,15 @@ export struct Review {
                   left: 20,
                   right: 20
                 })
+                .visibility(this.showTrans ? Visibility.Visible : Visibility.Hidden)
             }
           }
           .layoutWeight(1)
           .justifyContent(FlexAlign.Center)
+
+          Text($r('app.string.review_tip'))
+            .visibility(this.showTrans ? Visibility.Hidden : Visibility.Visible)
+
 
           Row({ space: 5 }) {
             Text($r('app.string.again'))
@@ -147,7 +154,10 @@ export struct Review {
               })
           }.height(50)
           .margin(10)
-        }.layoutWeight(1)
+          .visibility(this.showTrans ? Visibility.Visible : Visibility.Hidden)
+        }
+        .onClick(() => this.showTrans = true)
+        .layoutWeight(1)
         .justifyContent(FlexAlign.Center)
 
       } else {
@@ -169,17 +179,21 @@ export struct Review {
     this.getNext()
   }
 
-
   /**
    * 上一步
    */
   async previous() {
+    // 弹出最末尾的单词
     this.wordArr.pop()
+    // 回滚学习记录
     this.wordArr[this.wordArr.length - 1].wordCard.card = this.fsrs.rollback(
       this.wordArr[this.wordArr.length - 1].wordCard.card,
       this.wordArr[this.wordArr.length - 1].log as ReviewLogInput
     )
+    // 更新单词
     await DictHelper.updateWord(this.wordArr[this.wordArr.length - 1].wordCard)
+    // 删除一条学习记录
+    await LearnRecordHelper.deleteRecord()
   }
 
   /**
@@ -199,19 +213,22 @@ export struct Review {
     if (this.wordArr.length > 50) {
       this.wordArr.shift()
     }
+    // 隐藏学习界面
+    this.showTrans = false
+    // 增加学习记录
+    LearnRecordHelper.addRecord()
   }
 
   /**
    * 获取下一个单词
    */
-  async getNext(){
+  async getNext() {
     const nextword = await DictHelper.getNextWord()
     // 如果数组中有这个单词就删掉这个单词
     const index = this.wordArr.findIndex(word => word.wordCard.word.name === nextword.word.name)
-    if ( index !== -1) {
+    if (index !== -1) {
       this.wordArr.splice(index, 1)
     }
     this.wordArr.push({ wordCard: nextword, log: null })
   }
-
 }

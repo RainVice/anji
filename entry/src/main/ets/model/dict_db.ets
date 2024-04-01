@@ -86,7 +86,7 @@ export class DictItem {
       wordCard.word.usphone,
       wordCard.word.ukphone,
       wordCard.word.notation,
-      wordCard.card.due.toLocaleString(undefined,{hour12:false}).replace("24:00:00","00:00:00"),
+      wordCard.card.due.toString(),
       wordCard.card.stability,
       wordCard.card.difficulty,
       wordCard.card.elapsed_days,
@@ -94,7 +94,7 @@ export class DictItem {
       wordCard.card.reps,
       wordCard.card.lapses,
       wordCard.card.state,
-      wordCard.card.last_review?.toLocaleString(undefined,{hour12:false}).replace("24:00:00","00:00:00") || null
+      wordCard.card.last_review?.toString() || null
     )
 
   }

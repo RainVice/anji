@@ -2,12 +2,12 @@ import { FULL_PERCENTAGE } from '../../../constants'
 import { WordContent, DictInfo, dictionaryResources } from '../../../model'
 import { LoadingDialog } from '@kit.ArkUI'
 import { util } from '@kit.ArkTS'
-import { DictHelper } from '../../../utils/DictHelper'
+import { DictHelper } from '../../../utils'
 
 @Component
 export struct Dict {
-  @State categoryIndex: number = 0
-  dialogControllerProgress: CustomDialogController = new CustomDialogController({
+  @State private categoryIndex: number = 0
+  private dialogControllerProgress: CustomDialogController = new CustomDialogController({
     builder: LoadingDialog({ content: $r('app.string.swith_dict') }),
     autoCancel: false,
     // customStyle: true,
@@ -23,7 +23,7 @@ export struct Dict {
     const dataArr = getContext(this).resourceManager.getRawFileContentSync(dictInfo.url)
     const content = util.TextDecoder.create('utf-8').decodeWithStream(dataArr)
     const dictJson = JSON.parse(content) as WordContent[]
-    await DictHelper.addDict(dictInfo.id,dictJson)
+    await DictHelper.addDict(dictInfo.id, dictJson)
     this.dialogControllerProgress.close()
   }
 
@@ -36,7 +36,7 @@ export struct Dict {
             Column() {
               // 内容
               Scroll() {
-                Column({space: 10}) {
+                Column({ space: 10 }) {
                   ForEach(Array.from(new Set(dictionaryResources.filter(res => res.category === item)
                     .flatMap(res => res.tags))), (tag: string) => {
                     this.content(tag)
@@ -63,7 +63,7 @@ export struct Dict {
   content(title: string) {
     Column() {
       Text(title)
-        .margin({ bottom : 10})
+        .margin({ bottom: 10 })
         .fontColor($r('app.color.idle'))
         .fontSize(12)
       GridRow({

@@ -108,8 +108,8 @@ export class DictHelper extends OpenHelper {
       .where(
         property.id.eq(DictHelper.getCurrentDict()),
         [
-          property.due.between(taday.toLocaleString(undefined,{hour12: false}).replace("24:00:00","00:00:00"), tomorrow.toLocaleString(undefined,{hour12: false}).replace("24:00:00","00:00:00")),
-          property.last_review.lt(new Date(now.getTime() - reviewTime * 1000).toLocaleString(undefined,{hour12: false}).replace("24:00:00","00:00:00")),
+          property.due.between(taday.toString(), tomorrow.toString()),
+          property.last_review.lt(new Date(now.getTime() - reviewTime * 1000).toString()),
         ]
       )
       .orderAsc(property.due)
@@ -127,7 +127,6 @@ export class DictHelper extends OpenHelper {
     return words[0].getWordCard()
   }
 
-
   /**
    * 更新单词
    * @param wordContent
@@ -140,7 +139,6 @@ export class DictHelper extends OpenHelper {
     await DictHelper.dao.insert(DictItem.createDictItem(wordCard))
   }
 
-
   /**
    * 获取属性名
    * @returns
@@ -149,4 +147,5 @@ export class DictHelper extends OpenHelper {
     let entityClass = GlobalContext.getContext().getValue(GlobalContext.KEY_CLS) as Record<string, Object>;
     return entityClass.DictItem as Record<string, Property>;
   }
+
 }

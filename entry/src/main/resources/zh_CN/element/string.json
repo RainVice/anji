@@ -51,6 +51,10 @@
     {
       "name": "previous",
       "value": "上一个"
+    },
+    {
+      "name": "review_tip",
+      "value": "点击空白处显示翻译"
     }
   ]
 }
